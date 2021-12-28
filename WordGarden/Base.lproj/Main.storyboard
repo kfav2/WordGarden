@@ -86,7 +86,11 @@
                                             <constraint firstAttribute="width" constant="30" id="pSc-8H-sSl"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                        <connections>
+                                            <action selector="doneKeyPressed:" destination="BYZ-38-t0r" eventType="primaryActionTriggered" id="OaN-rE-oFJ"/>
+                                            <action selector="guessedLetterFieldChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="Bdn-nr-R6O"/>
+                                        </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LWd-MN-6XM">
                                         <rect key="frame" x="30" y="0.0" width="150" height="34"/>
@@ -97,7 +101,7 @@
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Guess A Letter"/>
                                         <connections>
-                                            <action selector="guessLetterButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Kmt-dH-ilg"/>
+                                            <action selector="guessLetterButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8sM-8e-KBh"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -156,7 +160,7 @@
                         <outlet property="flowerImage" destination="UHA-gI-xoQ" id="Enj-2M-BZO"/>
                         <outlet property="gameStatusLabel" destination="4dC-mY-qtD" id="tEi-gd-qiI"/>
                         <outlet property="guessLetterButton" destination="LWd-MN-6XM" id="gn0-GR-G63"/>
-                        <outlet property="guessedLetterField" destination="KdP-CF-GN6" id="tIB-HE-Nk6"/>
+                        <outlet property="guessedLetterTextField" destination="KdP-CF-GN6" id="tu7-Kr-wwh"/>
                         <outlet property="playAgainButton" destination="hpv-Pr-y5E" id="vXa-Dk-YzZ"/>
                         <outlet property="wordBeingRevealLabel" destination="T8Z-ld-Tts" id="5bJ-if-dhh"/>
                         <outlet property="wordsGuessedLabel" destination="gKT-ZD-e1B" id="NWh-67-peh"/>
