@@ -27,16 +27,26 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         let text = guessedLetterTextField.text!
         guessLetterButton.isEnabled = !(text.isEmpty)
-        
     }
+    
     func updateUIAfterGuess() {
         //resigns control of keyboard which is seen at the first responder
         guessedLetterTextField.resignFirstResponder()
         guessedLetterTextField.text! = ""
         guessLetterButton.isEnabled = false
     }
+    
+    func returnLastCharacter(text: String) -> String {
+        guard let lastCharacter = text.last else {
+            return ""
+        }
+        return String(lastCharacter)
+    }
+    
     @IBAction func guessedLetterFieldChanged(_ sender: UITextField) {
-        let text = guessedLetterTextField.text!
+        var text = guessedLetterTextField.text!
+        text = returnLastCharacter(text: text)
+        guessedLetterTextField.text = text
         guessLetterButton.isEnabled = !(text.isEmpty)
     }
     
