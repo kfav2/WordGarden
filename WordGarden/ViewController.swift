@@ -36,18 +36,9 @@ class ViewController: UIViewController {
         guessLetterButton.isEnabled = false
     }
     
-    func returnLastCharacter(text: String) -> String {
-        guard let lastCharacter = text.last else {
-            return ""
-        }
-        return String(lastCharacter)
-    }
-    
     @IBAction func guessedLetterFieldChanged(_ sender: UITextField) {
-        var text = guessedLetterTextField.text!
-        text = returnLastCharacter(text: text)
-        guessedLetterTextField.text = text
-        guessLetterButton.isEnabled = !(text.isEmpty)
+        sender.text = String(sender.text?.last ?? " ").trimmingCharacters(in: .whitespaces)
+        guessLetterButton.isEnabled = !(sender.text!.isEmpty)
     }
     
     @IBAction func doneKeyPressed(_ sender: UITextField) {
