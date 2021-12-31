@@ -15,18 +15,30 @@ class ViewController: UIViewController {
     @IBOutlet weak var wordsRemainingLabel: UILabel!
     @IBOutlet weak var wordsInGameLabel: UILabel!
     
-    @IBOutlet weak var wordBeingRevealLabel: UILabel!
+    @IBOutlet weak var wordBeingRevealedLabel: UILabel!
     @IBOutlet weak var guessLetterButton: UIButton!
-    @IBOutlet weak var gameStatusLabel: UILabel!
+    @IBOutlet weak var gameStatusMessageLabel: UILabel!
     @IBOutlet weak var playAgainButton: UIButton!
-    @IBOutlet weak var flowerImage: UIImageView!
+    @IBOutlet weak var flowerImageView: UIImageView!
     @IBOutlet weak var guessedLetterTextField: UITextField!
     
-
+    var wordsToGuess = ["SWIFT", "DOG", "CAT"]
+    var currentWordIndex = 0
+    var wordToGuess = ""
+    var lettersGuessed = ""
+    let maxNumberOfWrongGuesses = 8
+    var wrongGuessesRemaining = 8
+    var wordsGuessedCount = 0
+    var wordsMissedCount = 0
+    var guessCount = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let text = guessedLetterTextField.text!
         guessLetterButton.isEnabled = !(text.isEmpty)
+        wordToGuess = wordsToGuess[currentWordIndex]
+        wordBeingRevealedLabel.text = "_" + String(repeating: " _", count: wordToGuess.count-1)
+        updateGameStatusLabels()
     }
     
     func updateUIAfterGuess() {
@@ -36,19 +48,111 @@ class ViewController: UIViewController {
         guessLetterButton.isEnabled = false
     }
     
+    func formatRevealedWord() {
+        var revealedWord = ""
+        // format and show revealedWord in wordBeingRevealedLabel to include new guess
+        for letter in wordToGuess {
+            // check to see if letter in Words Guessed is in lettersGuessed
+            if lettersGuessed.contains(letter) {
+                //if so add letter to revealedWord with a blank space
+                revealedWord = revealedWord + "\(letter) "
+            } else {
+                //if not add _ and blank space
+                revealedWord = revealedWord + "_ "
+            }
+        }
+        // remove space at the end of revealedWord
+        revealedWord.removeLast()
+        wordBeingRevealedLabel.text = revealedWord
+    }
+    
+    func updateAfterWinOrLose() {
+        currentWordIndex += 1
+        guessedLetterTextField.isEnabled = false
+        guessLetterButton.isEnabled = false
+        playAgainButton.isHidden = false
+        updateGameStatusLabels()
+    }
+    
+    func updateGameStatusLabels() {
+        // update text label at top of screen
+        wordsGuessedLabel.text = "Words Guessed: \(wordsGuessedCount)"
+        wordsMissedLabel.text = "Words Missed: \(wordsMissedCount)"
+        wordsRemainingLabel.text = "Words Remaining: \(wordsToGuess.count - (wordsMissedCount + wordsGuessedCount))"
+        wordsInGameLabel.text = "Words in Game: \(wordsToGuess.count)"
+    }
+    
+    func guessALetter() {
+        // get current letter guessed and add it to all letters guessed
+        let currentLetterGuessed = guessedLetterTextField.text!
+        lettersGuessed = lettersGuessed + currentLetterGuessed
+        
+        formatRevealedWord()
+        
+        // update image, if needed, and keep track of wrong guesses
+        if wordToGuess.contains(currentLetterGuessed) == false{
+            wrongGuessesRemaining = wrongGuessesRemaining - 1
+            flowerImageView.image = UIImage(named: "flower\(wrongGuessesRemaining)")
+        }
+        
+        // update gameStatusLabel for wrong guesses
+        guessCount += 1
+        let guesses = (guessCount == 1 ? "guess" : "guesses")
+        gameStatusMessageLabel.text = "You've made \(guessCount) \(guesses)"
+        
+        // update win or lose
+        if wordBeingRevealedLabel.text!.contains("_") == false {
+            gameStatusMessageLabel.text = "You've guessed it! It took you \(guessCount) guesses to guess the word"
+            wordsGuessedCount += 1
+            updateAfterWinOrLose()
+        } else if wrongGuessesRemaining == 0 {
+            gameStatusMessageLabel.text = "So sorry. You're all out of guesses."
+            wordsMissedCount += 1
+            updateAfterWinOrLose()
+        }
+        // check to see if you've used all the words. If so, update with a message indicating player can restart the entire game
+        if currentWordIndex == wordToGuess.count {
+            gameStatusMessageLabel.text! += "\n\nYou've tried all the words! Restart from beginning?"
+        }
+    }
+    
     @IBAction func guessedLetterFieldChanged(_ sender: UITextField) {
         sender.text = String(sender.text?.last ?? " ").trimmingCharacters(in: .whitespaces)
         guessLetterButton.isEnabled = !(sender.text!.isEmpty)
     }
     
     @IBAction func doneKeyPressed(_ sender: UITextField) {
+        guessALetter()
+        // this dismisses the keyboard
         updateUIAfterGuess()
     }
     @IBAction func guessLetterButtonPressed(_ sender: UIButton) {
+        guessALetter()
+        // this dismisses the keyboard
         updateUIAfterGuess()
     }
     
     @IBAction func playAgainButtonPressed(_ sender: UIButton) {
+        // if all words have been guessed and you press playAgain, then restart all games as if the app has been restarted
+        if currentWordIndex == wordsToGuess.count {
+            currentWordIndex = 0
+            wordsGuessedCount = 0
+            wordsMissedCount = 0
+        }
+        
+        playAgainButton.isHidden = true
+        guessedLetterTextField.isEnabled = true
+        guessLetterButton.isEnabled = false //don't turn true until a character appears in the text field
+        wordToGuess = wordsToGuess[currentWordIndex]
+        // create word with _ and blank spaces for each letter
+        wordBeingRevealedLabel.text = "_" + String(repeating: " _", count: wordToGuess.count-1)
+        wrongGuessesRemaining = maxNumberOfWrongGuesses
+        guessCount = 0
+        flowerImageView.image = UIImage(named: "flower\(maxNumberOfWrongGuesses)")
+        lettersGuessed = ""
+        gameStatusMessageLabel.text = "You've made Zero guesses"
+        updateGameStatusLabels()
+        
     }
     
     

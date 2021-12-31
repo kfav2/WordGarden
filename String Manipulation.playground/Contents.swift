@@ -120,20 +120,7 @@ for letter in wordToGuess {
         revealedWord = revealedWord + "_ "
     }
 }
-revealedWord.removeLast()
+
 print("Word to guess is: \(wordToGuess)")
 print("Letters guessed are: \(lettersGuessed)")
 print("What is shown is: \(revealedWord)")
-
-//var address = "123 James St."
-//var streetString = "St."
-//var replacementString = "Street"
-//
-//var standardAddress = address.replacingOccurrences(of: streetString, with: replacementString)
-
-//contains
-//if myName.contains(smallerString) {
-//    print("\(myName) contains \(smallerString)")
-//} else {
-//    print("There is no \(smallerString) in \(myName)")
-//}

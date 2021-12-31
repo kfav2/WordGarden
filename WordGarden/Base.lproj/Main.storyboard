@@ -67,7 +67,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="_ _ _ _" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T8Z-ld-Tts">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="_" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T8Z-ld-Tts">
                                 <rect key="frame" x="16" y="131" width="288" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="D1P-Hp-m3w"/>
@@ -106,19 +106,21 @@
                                     </button>
                                 </subviews>
                             </stackView>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hpv-Pr-y5E">
+                            <button hidden="YES" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hpv-Pr-y5E">
                                 <rect key="frame" x="115" y="202" width="90" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="90" id="4cX-5c-xks"/>
                                     <constraint firstAttribute="height" constant="30" id="xrq-sp-aif"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Play Again"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Play Again">
+                                    <fontDescription key="titleFontDescription" style="UICTFontTextStyleFootnote"/>
+                                </buttonConfiguration>
                                 <connections>
                                     <action selector="playAgainButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="drE-XU-GI9"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You've Made Zero Guesses" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4dC-mY-qtD">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You've Made Zero Guesses" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4dC-mY-qtD">
                                 <rect key="frame" x="16" y="240" width="288" height="74"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="74" id="OBG-FG-JaU"/>
@@ -157,12 +159,12 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="flowerImage" destination="UHA-gI-xoQ" id="Enj-2M-BZO"/>
-                        <outlet property="gameStatusLabel" destination="4dC-mY-qtD" id="tEi-gd-qiI"/>
+                        <outlet property="flowerImageView" destination="UHA-gI-xoQ" id="Enj-2M-BZO"/>
+                        <outlet property="gameStatusMessageLabel" destination="4dC-mY-qtD" id="tEi-gd-qiI"/>
                         <outlet property="guessLetterButton" destination="LWd-MN-6XM" id="gn0-GR-G63"/>
                         <outlet property="guessedLetterTextField" destination="KdP-CF-GN6" id="tu7-Kr-wwh"/>
                         <outlet property="playAgainButton" destination="hpv-Pr-y5E" id="vXa-Dk-YzZ"/>
-                        <outlet property="wordBeingRevealLabel" destination="T8Z-ld-Tts" id="5bJ-if-dhh"/>
+                        <outlet property="wordBeingRevealedLabel" destination="T8Z-ld-Tts" id="5bJ-if-dhh"/>
                         <outlet property="wordsGuessedLabel" destination="gKT-ZD-e1B" id="NWh-67-peh"/>
                         <outlet property="wordsInGameLabel" destination="Qcs-XH-eAk" id="5WJ-XP-2JC"/>
                         <outlet property="wordsMissedLabel" destination="qAd-hK-mVw" id="Y0q-XP-yfD"/>
